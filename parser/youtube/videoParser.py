@@ -1,4 +1,4 @@
-import urllib.request
+from urllib import request
 import json
 import csv
 
@@ -14,7 +14,7 @@ def getVideoFromChannel(channel_id):
     video_links = []
     url = first_url
     while True:
-        inp = urllib.request.urlopen(url)
+        inp = request.urlopen(url)
         resp = json.load(inp)
 
         for i in resp['items']:
@@ -29,9 +29,9 @@ def getVideoFromChannel(channel_id):
             url = first_url + '&pageToken={}'.format(next_page_token)
         except:
             break
-    return video_links
+    #return video_links
 
-    with open(SAVE_PATH+"search_channel_id.csv", 'w', newline='') as csv_file:
+    with open("list_to_csv.csv", 'w', newline='') as csv_file:
         csv_writer = csv.writer(csv_file)
         for item in video_links:
             csv_writer.writerow([item])
