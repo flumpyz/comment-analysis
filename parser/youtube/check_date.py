@@ -12,12 +12,10 @@ def check_date():
             arr = line.split(',')
             url = arr[0].replace('\'', '')
             url = url.replace('[', '')
-            if len(arr) == 4:
-                date = arr[3]
-            elif len(arr) == 5:
-                date = arr[4]
+            date = arr[len(arr)-1]
             hashmap[url] = (datetime.strptime(date[2:12], "%Y-%m-%d"))
     print(hashmap)
+    return hashmap
 
 
 
