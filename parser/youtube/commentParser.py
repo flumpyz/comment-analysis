@@ -7,8 +7,8 @@ __maintainer__ = "Chirag Rathod (Srce Cde)"
 import os
 import argparse
 from urllib.parse import urlparse, parse_qs
-from youtube.video_comments import VideoComment
-apiKey = "AIzaSyD1OpkSMxv3y2v93rY5WJ5GpW4hIZ1QiZo"
+from video_comments import VideoComment
+apiKey = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
 
 os.makedirs("output", exist_ok=True)
 parser = argparse.ArgumentParser()

@@ -1,9 +1,8 @@
 import youtube.videoParser as cm
-import youtube.commentParser as cp
-import youtube.check_date as cd
+#import youtube.check_date as cd
 
 #URLvid = "https://www.youtube.com/watch?v=vYkD3GU-rvA"
-#cm.getVideoFromChannel('UC_WdeoiTXMr-c_jMSP7PLmQ')
+cm.getVideoFromChannel('UCyEjQOeF0Vi6JC8zf5RCoHA')
 
-cd.check_date()
+#cd.check_date()
 

@@ -3,7 +3,7 @@ import json
 import csv
 
 def getVideoFromChannel(channel_id):
-    api_key = "AIzaSyD1OpkSMxv3y2v93rY5WJ5GpW4hIZ1QiZo"
+    api_key = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
 
     base_video_url = 'https://www.youtube.com/watch?v='
     base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
@@ -31,7 +31,7 @@ def getVideoFromChannel(channel_id):
             break
     #return video_links
 
-    with open("list_to_csv.csv", 'w', newline='') as csv_file:
+    with open("list_to_csv.csv", 'w', newline='', encoding='utf-8') as csv_file:
         csv_writer = csv.writer(csv_file)
         for item in video_links:
             csv_writer.writerow([item])

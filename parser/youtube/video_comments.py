@@ -7,8 +7,8 @@ __maintainer__ = "Chirag Rathod (Srce Cde)"
 from collections import defaultdict
 import json
 import pandas as pd
-from utils.helper import openURL
-from config import YOUTUBE_COMMENT_URL, SAVE_PATH
+from helper import openURL
+from parser.config import YOUTUBE_COMMENT_URL, SAVE_PATH
 
 class VideoComment:
     def __init__(self, maxResults, videoId, key ):
