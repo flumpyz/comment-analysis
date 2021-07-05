@@ -2,11 +2,14 @@
 
 # Press Shift+F10 to execute it or replace it with your code.
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
+from sentiment_determinant import SentimentDeterminant
+from visualizer import Visualizer
 
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
-    print(f'Hi, {name}')  # Press Ctrl+F8 to toggle the breakpoint.
+    comments = SentimentDeterminant.get_sentiment_array_from_file()
+    Visualizer.build_a_schedule(comments)
 
 
 # Press the green button in the gutter to run the script.

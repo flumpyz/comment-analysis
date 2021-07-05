@@ -3,7 +3,7 @@ import sqlite3
 
 class SQL:
     def __init__(self, database):
-        self.connection = sqlite3.connect(database)
+        self.connection = sqlite3.connect(database, check_same_thread=False)
         self.cursor = self.connection.cursor()
 
     def get_subscriptions(self):
@@ -24,6 +24,9 @@ class SQL:
             return self.cursor.execute("INSERT INTO `Users` (`user_id`, `status`) VALUES(?,?)",
                                        (user_id, status))
 
+    def change_subscription(self, user_id, status):
+        with self.connection:
+            return self.cursor.execute("UPDATE `Users` SET `status` = ? WHERE `user_id` = ?", (status, user_id))
 
     def close(self):
         self.connection.close()

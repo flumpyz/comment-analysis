@@ -1,66 +1,89 @@
-from aiogram import Bot, Dispatcher, executor, types
-from aiogram.types import ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton, InlineKeyboardMarkup, \
-    InlineKeyboardButton
-from sql import SQL
+import telebot
 
-bot = Bot('1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y')
-dp = Dispatcher(bot)
+from youtube import commentParser as cp
+from youtube import videoParser as vp
+from sentiment_determinant import SentimentDeterminant
+from sql import SQL
+from visualizer import Visualizer
 
 db = SQL('db.db')
+bot = telebot.TeleBot('1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y')
 
 
-@dp.message_handler(commands=['admin_panel'])
-async def admin_panel(message: types.Message):
+@bot.message_handler(commands=['start'])
+def start_message(message):
+    keyboard = telebot.types.ReplyKeyboardMarkup(True)
+    keyboard.row('/admin_panel', '/moderator_panel', '/user_panel')
+    bot.send_message(message.chat.id, 'Hi', reply_markup=keyboard)
+
+
+@bot.message_handler(commands=['admin_panel'])
+def admin_panel(message):
     status = db.get_status(message.from_user.id)
     if status != 1:
-        await message.answer('You have no rights')
+        bot.send_message(message.chat.id, 'You have no rights')
     else:
-        button_change_status = KeyboardButton('/change_status')
-        button_choose_period = KeyboardButton('/choose_period')
-        button_analyse_video = KeyboardButton('/analyse_video')
-        admin_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        admin_kb.add(button_change_status, button_choose_period, button_analyse_video)
-        await message.reply('Choose action', reply_markup=admin_kb)
+        keyboard = telebot.types.ReplyKeyboardMarkup(True)
+        keyboard.row('/change_status', '/choose_channel', '/get_analyse')
+        bot.send_message(message.chat.id, 'Choose action', reply_markup=keyboard)
 
 
-@dp.message_handler(commands=['moderator_panel'])
-async def moderator_panel(message: types.Message):
+@bot.message_handler(commands=['moderator_panel'])
+def admin_panel(message):
     status = db.get_status(message.from_user.id)
     if status == 3:
-        await message.answer('You have no rights')
+        bot.send_message(message.chat.id, 'You have no rights')
     else:
-        button_choose_period = KeyboardButton('/choose_period')
-        button_analyse_video = KeyboardButton('/analyse_video')
-        moderator_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-        moderator_kb.add(button_choose_period, button_analyse_video)
-        await message.reply('Choose action', reply_markup=moderator_kb)
+        keyboard = telebot.types.ReplyKeyboardMarkup(True)
+        keyboard.row('/choose_channel', '/get_analyse')
+        bot.send_message(message.chat.id, 'Choose action', reply_markup=keyboard)
 
 
-@dp.message_handler(commands=['user_panel'])
-async def user_panel(message: types.Message):
-    button_analyse_video = KeyboardButton('/analyse_video')
-    admin_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    admin_kb.add(button_analyse_video)
-    await message.reply('Choose action', reply_markup=admin_kb)
+@bot.message_handler(commands=['user_panel'])
+def admin_panel(message):
+    keyboard = telebot.types.ReplyKeyboardMarkup(True)
+    keyboard.row('/get_analyse')
+    bot.send_message(message.chat.id, 'Choose action', reply_markup=keyboard)
 
 
-@dp.message_handler(commands=['start'])
-async def start(message: types.Message):
-    button_admin = KeyboardButton('/admin_panel')
-    button_moderator = KeyboardButton('/moderator_panel')
-    button_user = KeyboardButton('/user_panel')
-
-    start_kb = ReplyKeyboardMarkup(resize_keyboard=True, one_time_keyboard=True)
-    start_kb.add(button_admin, button_moderator, button_user)
-    if not db.subscriber_exists(message.from_user.id):
-        db.add_subscriber(message.from_user.id)
-    await message.reply('Choose mode', reply_markup=start_kb)
+@bot.message_handler(commands=['change_status'])
+def change_status(message):
+    msg = bot.send_message(message.from_user.id, 'Enter ID and status ID')
+    bot.register_next_step_handler(msg, change_status_2)
 
 
-@dp.message_handler()
-async def echo(message: types.Message):
-    await message.answer(message.text)
+def change_status_2(message):
+    array = message.text.split(' ')
+    db.change_subscription(array[0], array[1])
+    bot.send_message(message.from_user.id, 'Done!')
 
 
-if __name__ == '__main__':
-    executor.start_polling(dp, skip_updates=True)
+@bot.message_handler(commands=['choose_channel'])
+def choose_channel(message):
+    msg = bot.send_message(message.from_user.id, 'Enter channel ID')
+    bot.register_next_step_handler(msg, choose_channel_2)
+
+
+def choose_channel_2(message):
+    vp.getVideoFromChannel(message)
+    file = open('parent_video_comment.csv', 'rb')
+    bot.send_document(message.from_user.id, file)
+    file.close()
+
+
+@bot.message_handler(commands=['get_analyse'])
+def get_analyse(message):
+    msg = bot.send_message(message.from_user.id, 'Enter URL')
+    bot.register_next_step_handler(msg, get_analyse_2)
+
+
+def get_analyse_2(message):
+    #cp.getCommentsFromVideo(message, 0)
+    comments = SentimentDeterminant.get_sentiment_array_from_file()
+    Visualizer.build_a_schedule(comments)
+    file = open('schedule.svg')
+    bot.send_document(message.from_user.id, file)
+    file.close()
+
+
+bot.polling()
