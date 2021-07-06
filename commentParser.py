@@ -10,7 +10,7 @@ from urllib.parse import urlparse, parse_qs
 from video_comments import VideoComment
 apiKey = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
 
-os.makedirs("output", exist_ok=True)
+os.makedirs("bot/output", exist_ok=True)
 parser = argparse.ArgumentParser()
 
 

@@ -54,7 +54,7 @@ class VideoComment:
 
     def create_df(self):
         df = pd.DataFrame().from_dict(self.comments)
-        df.to_csv(SAVE_PATH+"parent_video_comment.csv")
+        df.to_csv("parent_video_comment.csv")
 
         df = pd.DataFrame().from_dict(self.replies)
-        df.to_csv(SAVE_PATH+"comment_reply.csv")
+        df.to_csv("comment_reply.csv")

@@ -1,4 +1,4 @@
-import youtube.videoParser as cm
+import videoParser as cm
 #import youtube.check_date as cd
 
 #URLvid = "https://www.youtube.com/watch?v=vYkD3GU-rvA"

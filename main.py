@@ -4,12 +4,11 @@
 # Press Double Shift to search everywhere for classes, files, tool windows, actions, and settings.
 from sentiment_determinant import SentimentDeterminant
 from visualizer import Visualizer
-
+import commentParser as cp
 
 def print_hi(name):
     # Use a breakpoint in the code line below to debug your script.
-    comments = SentimentDeterminant.get_sentiment_array_from_file()
-    Visualizer.build_a_schedule(comments)
+    cp.getCommentsFromVideo("https://www.youtube.com/watch?v=ZHlSdDTcgCo", 0)
 
 
 # Press the green button in the gutter to run the script.

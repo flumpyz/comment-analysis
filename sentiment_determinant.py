@@ -22,7 +22,7 @@ class SentimentDeterminant:
 
     @staticmethod
     def get_comments_from_file(file_name):
-        comments_file = open(file_name, 'r')
+        comments_file = open(file_name, 'r', encoding="utf-8")
         comments = comments_file.read().split('Z\n')
         comments.pop(0)
         all_comments_texts = []
