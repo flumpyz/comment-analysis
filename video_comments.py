@@ -8,10 +8,10 @@ from collections import defaultdict
 import json
 import pandas as pd
 from helper import openURL
-from config import YOUTUBE_COMMENT_URL, SAVE_PATH
+from config import YOUTUBE_COMMENT_URL
 
 class VideoComment:
-    def __init__(self, maxResults, videoId, key ):
+    def __init__(self, maxResults, videoId, key):
         self.comments = defaultdict(list)
         self.replies = defaultdict(list)
         self.params = {
@@ -50,7 +50,6 @@ class VideoComment:
             nextPageToken = url_response.get("nextPageToken")
             self.load_comments(url_response)
         self.create_df()
-
 
     def create_df(self):
         df = pd.DataFrame().from_dict(self.comments)

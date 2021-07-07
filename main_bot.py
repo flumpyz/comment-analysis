@@ -3,10 +3,12 @@ import sql
 import datetime as dt
 import keyboards
 import commentParser as cp
-import videoParser as vp
 from sentiment_determinant import SentimentDeterminant
 from sql import SQL
 from visualizer import Visualizer
+from word_cloud import Word_Cloud as wc
+import time
+from tg_tqdm import tg_tqdm
 
 bot = telebot.TeleBot('1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y')
 
@@ -50,31 +52,48 @@ def start_work(message):
                      "\nВидео: https://www.youtube.com/watch?v***"
                      "\nКанал: https://www.youtube.com/channel/***, необходимо указать только ID канала на месте звездочек",
                      reply_markup=keyboards.main_keyboard(message))
+    # bot.send_message(message.chat.id, message.from_user.username)
 
 
 @bot.message_handler(content_types=['text'])
 def processing_message(message):
     if message.text == "Функции администратора":
-        bot.send_message(message.chat.id, "Функции администратора", reply_markup=keyboards.admin_keyboard())
+        if interaction.get_user_admin(message.from_user.username) is not None:
+            bot.send_message(message.chat.id, "Функции администратора", reply_markup=keyboards.admin_keyboard())
+        else:
+            bot.send_message(message.chat.id, "У вас недостаточно прав!")
 
     elif message.text == "Добавить нового администратора":
-        bot.send_message(message.chat.id, "Введите username пользователя, которого вы хотите сделать администратором")
-        SetState(message, 71)
+        if interaction.get_user_admin(message.from_user.username) is not None:
+            bot.send_message(message.chat.id,
+                             "Введите username пользователя, которого вы хотите сделать администратором")
+            SetState(message, 71)
+        else:
+            bot.send_message(message.chat.id, "У вас недостаточно прав!")
 
     elif message.text == "Удалить администратора":
-        bot.send_message(message.chat.id,
-                         "Введите username пользователя, которого вы хотите убрать из списка администраторов")
-        SetState(message, 72)
+        if interaction.get_user_admin(message.from_user.username) is not None:
+            bot.send_message(message.chat.id,
+                             "Введите username пользователя, которого вы хотите убрать из списка администраторов")
+            SetState(message, 72)
+        else:
+            bot.send_message(message.chat.id, "У вас недостаточно прав!")
 
     elif message.text == "Добавить модератора":
-        bot.send_message(message.chat.id,
-                         "Введите username пользователя, которого вы хотите убрать из списка модераторов")
-        SetState(message, 81)
+        if interaction.get_user_admin(message.from_user.username) is not None:
+            bot.send_message(message.chat.id,
+                             "Введите username пользователя, которого вы хотите убрать из списка модераторов")
+            SetState(message, 81)
+        else:
+            bot.send_message(message.chat.id, "У вас недостаточно прав!")
 
     elif message.text == "Удалить модератора":
-        bot.send_message(message.chat.id,
-                         "Введите username пользователя, которого вы хотите убрать из списка модераторов")
-        SetState(message, 82)
+        if interaction.get_user_admin(message.from_user.username) is not None:
+            bot.send_message(message.chat.id,
+                             "Введите username пользователя, которого вы хотите убрать из списка модераторов")
+            SetState(message, 82)
+        else:
+            bot.send_message(message.chat.id, "У вас недостаточно прав!")
 
     elif message.text == "Посмотреть статистику":  # новые + за неделю
         bot.send_message(message.chat.id, "Статистика", reply_markup=keyboards.statistics_keyboard())
@@ -125,18 +144,30 @@ def processing_message(message):
         else:
             string += f'Анализ комментариев на канале: {len(action_ach)} раз' + '\n'
 
+        action_wcb = interaction.print_actions_from_statistic_table('wcb')
+        if action_wcb == []:
+            string += 'Wordcloud речи блогера: 0 раз\n'
+        else:
+            string += f'Wordcloud речи блогера: {len(action_wcb)} раз' + '\n'
+
         bot.send_message(message.chat.id, string, reply_markup=keyboards.back_keyboard())
 
     elif message.text == "Анализ комментариев":
-        bot.send_message(message.chat.id, "Проанализировать комментарии...", reply_markup=keyboards.analysis_keyboard(message))
+        bot.send_message(message.chat.id, "Проанализировать комментарии...",
+                         reply_markup=keyboards.analysis_keyboard(message))
+
+    elif message.text == "Wordcloud":
+        bot.send_message(message.chat.id, "Введите ссылку на видео", reply_markup=keyboards.back_keyboard())
+        SetState(message, 6)
 
     elif message.text == "Избранное":
         bot.send_message(message.chat.id, "Выберите действие", reply_markup=keyboards.fav_keyboard())
 
     elif message.text == "История":
-        # выводим список из 10 последний ссылок
+        result = interaction.get_user_statistic(message.from_user.username)
         bot.send_message(message.chat.id, "История", reply_markup=keyboards.back_keyboard())
-        bot.send_message(message.chat.id, "Список 10 последних ссылок")
+        for url in result:
+            bot.send_message(message.chat.id, url)
 
     elif message.text == "Назад":
         bot.send_message(message.chat.id, "Что вы хотите сделать?", reply_markup=keyboards.main_keyboard(message))
@@ -146,19 +177,20 @@ def processing_message(message):
         SetState(message, 1)
 
     elif message.text == "На канале":
-        bot.send_message(message.chat.id, "Введите ссылку на канал", reply_markup=keyboards.back_keyboard())
-        SetState(message, 2)
+        if (interaction.get_user_admin(message.from_user.username) or interaction.get_user_moderator(message.from_user.username)) is not None:
+            bot.send_message(message.chat.id, "Введите ссылку на канал", reply_markup=keyboards.back_keyboard())
+            SetState(message, 2)
+        else:
+            bot.send_message(message.chat.id, "У вас недостаточно прав!")
 
     elif message.text == "Посмотреть избранное":
         bot.send_message(message.chat.id, "Выводим список избранных", reply_markup=keyboards.back_keyboard())
-        if message.from_user.username is not None:
-            favourites = interaction.print_favorites_table(message.from_user.username)
-        else:
-            favourites = interaction.insert_into_statistic_table(str(message.from_user.id))
+        favourites = interaction.print_favorites_table(message.from_user.username)
         count = 1
         string = ''
         for i in favourites:
-            string += f'{count}. i[1]'
+            string += f'{count}. {i[1]}\n'
+            count = count + 1
 
         bot.send_message(message.chat.id, string, reply_markup=keyboards.back_keyboard())
 
@@ -172,9 +204,6 @@ def processing_message(message):
         bot.send_message(message.chat.id, "Введите ссылку, которую вы хотите удалить из избранного",
                          reply_markup=keyboards.back_keyboard())
         SetState(message, 52)
-
-        # занесение в бд
-        # картинка
 
     elif message.text == "Привет" or message.text == "привет":
         bot.send_message(message.chat.id, "Доброго времени суток! Что вы хотите сделать?",
@@ -192,16 +221,18 @@ def processing_message(message):
         if GetState(message) == 1:
             try:
                 if message.from_user.username is not None:
-                    interaction.insert_into_statistic_table(message.from_user.username, "ac")
+                    interaction.insert_into_statistic_table(message.from_user.username, "ac", message.text)
                 else:
-                    interaction.insert_into_statistic_table(str(message.from_user.id), "ac")
-
-                bot.link_video1 = message.text
-                #cp.getCommentsFromVideo(bot.link_video1)
-                comments = SentimentDeterminant.get_sentiment_array_from_file()
-                Visualizer.build_a_schedule(comments)
+                    interaction.insert_into_statistic_table(str(message.from_user.id), "ac", message.text)
                 bot.send_message(message.chat.id,
                                  "Анализ комментариев может занять некоторое время, пожалуйста, дождитесь результата.")
+                bot.link_video1 = message.text
+                comments_count = cp.get_information_from_youtube_video(message.text[32:43])
+                for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
+                    time.sleep(3.3)
+                cp.getCommentsFromVideo(bot.link_video1, 0)
+                comments = SentimentDeterminant.get_sentiment_array_from_file()
+                Visualizer.build_a_schedule(comments)
                 f = open("schedule.svg", "rb")
                 bot.send_document(message.chat.id, f)
             except:
@@ -210,10 +241,105 @@ def processing_message(message):
                                                   "сначала")
             SetState(message, 0)
 
+        elif GetState(message) == 6:
+            try:
+                if message.from_user.username is not None:
+                    interaction.insert_into_statistic_table(message.from_user.username, "wcb", message.text)
+                else:
+                    interaction.insert_into_statistic_table(str(message.from_user.id), "wcb", message.text)
+                link_video6 = message.text
+                comments_count = cp.get_information_from_youtube_video(message.text[32:43])
+                for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
+                    time.sleep(3.5)
+                bot.send_message(message.chat.id, "Выводим wordcloud анализ", reply_markup=keyboards.back_keyboard())
+                wc.make_picture(message.text)
+                wphoto = open('WordCloud_pic.png', 'rb')
+                bot.send_photo(message.chat.id, wphoto)
+            except:
+                bot.send_message(message.chat.id, "Что-то пошло не так, повторите запрос")
+                pass
+            SetState(message, 0)
+
+        elif GetState(message) == 51:
+            link_fav51 = message.text
+            data = interaction.check_in_favourites(message.from_user.username, link_fav51)
+            if data:
+                bot.send_message(message.chat.id, "Данная ссылка уже существует в Избранном",
+                                 reply_markup=keyboards.back_keyboard())
+            else:
+                if message.from_user.username is not None:
+                    interaction.insert_into_favourites_table(message.from_user.username, link_fav51)
+                else:
+                    interaction.insert_into_favourites_table(str(message.from_user.id), link_fav51)
+                bot.send_message(message.chat.id, "Успешно добавлено в Избранное")
+            SetState(message, 0)
+
+        elif GetState(message) == 52:
+            link_fav52 = message.text
+            data = interaction.check_in_favourites(message.from_user.username, link_fav52)
+            if data:
+                interaction.delete_from_favourites_table(message.from_user.username, link_fav52)
+            bot.send_message(message.chat.id, "Ссылка удалена из избранного",
+                             reply_markup=keyboards.back_keyboard())
+            SetState(message, 0)
+
+        else:
+            bot.send_message(message.chat.id, "Возникла ошибка.")
+            SetState(message, 0)
+
     else:
-        bot.send_message(message.chat.id, "Возникла ошибка. Была введена неизвестная команда или неверная ссылка"
-                                          "\nНапишите /help")
-        SetState(message, 0)
+        if GetState(message) == 71:
+            try:
+                username71 = message.text
+                if interaction.get_user(username71) is not None and interaction.get_user_admin(username71) is None:
+                    interaction.insert_into_admins_table(username71)
+                    bot.send_message(message.chat.id, "Новый администратор добавлен",
+                                     reply_markup=keyboards.back_keyboard())
+                else:
+                    bot.send_message(message.chat.id, "Добавление не удалось. Возможно, такого пользователя не "
+                                                      "существует, или он уже является администратором",
+                                     reply_markup=keyboards.back_keyboard())
+            except:
+                pass
+            SetState(message, 0)
+
+        elif GetState(message) == 72:
+            try:
+                username72 = message.text
+                interaction.delete_from_admins_table(username72)
+                bot.send_message(message.chat.id, "Администратор удален", reply_markup=keyboards.back_keyboard())
+            except:
+                pass
+            SetState(message, 0)
+
+        elif GetState(message) == 81:
+            try:
+                username81 = message.text
+                if interaction.get_user(username81) is not None and interaction.get_user_moderator(username81) is None:
+                    interaction.insert_into_moderators_table(username81)
+                    bot.send_message(message.chat.id, "Новый модератор добавлен",
+                                     reply_markup=keyboards.back_keyboard())
+                else:
+                    bot.send_message(message.chat.id, "Добавление не удалось. Возможно, такого пользователя не "
+                                                      "существует, или он уже является модератором",
+                                     reply_markup=keyboards.back_keyboard())
+            except:
+                pass
+            SetState(message, 0)
+
+        elif GetState(message) == 82:
+            try:
+                username82 = message.text
+                interaction.delete_from_moderators_table(username82)
+                bot.send_message(message.chat.id, "Модератор удален", reply_markup=keyboards.back_keyboard())
+            except:
+                pass
+            SetState(message, 0)
+
+        else:
+            bot.send_message(message.chat.id, "Возникла ошибка. Была введена неизвестная команда или неверная ссылка"
+                                              "\nНапишите /help")
+            SetState(message, 0)
 
 
 bot.polling(none_stop=True, interval=0)

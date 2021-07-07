@@ -8,6 +8,9 @@ import os
 import argparse
 from urllib.parse import urlparse, parse_qs
 from video_comments import VideoComment
+import urllib
+from urllib import request
+import json
 apiKey = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
 
 os.makedirs("bot/output", exist_ok=True)
@@ -25,3 +28,15 @@ def getCommentsFromVideo(videourl, maxComments):
 
     vc = VideoComment(maxComments, vid, apiKey)
     vc.get_video_comments()
+
+
+def get_information_from_youtube_video(video_id):
+    base_info_url = 'https://www.googleapis.com/youtube/v3/videos?'
+
+    info_url = base_info_url + 'part=statistics&key={}&id={}'.format(apiKey, video_id)
+
+    print(info_url)
+    inp = urllib.request.urlopen(info_url)
+    resp = json.load(inp)
+
+    return resp['items'][0]['statistics']['commentCount']

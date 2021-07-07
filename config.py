@@ -6,4 +6,5 @@ __maintainer__ = "Chirag Rathod (Srce Cde)"
 
 YOUTUBE_SEARCH_URL = "https://www.googleapis.com/youtube/v3/search"
 YOUTUBE_COMMENT_URL = "https://www.googleapis.com/youtube/v3/commentThreads"
+YOUTUBE_COMMENT_COUNT = "https://www.googleapis.com/youtube/v3/videos?part=statistics&id="
 SAVE_PATH = "bot/output/"

@@ -1,37 +1,18 @@
 import sqlite3
 import datetime as dt
 
-
 class SQL:
 
     def __init__(self, name):
         self.name = name
 
     def connect(self):
-        self.conn = sqlite3.connect(str(self.name) + ".db")
+        self.conn = sqlite3.connect(str(self.name) + ".db", check_same_thread=False)
         self.cursor = self.conn.cursor()
 
     def close(self):
         self.conn.commit()
         self.conn.close()
-
-    def create_table(self, name):
-
-        self.table_name = name
-        self.connect()
-        self.cursor.execute(f"""CREATE TABLE IF NOT EXISTS {self.table_name} 
-                        (video_id text PRIMARY KEY, channel_name text, video_name text, language text,
-                        comment_count text, like_count text, dislike_count text, relation text, views_count text, 
-                        tags_count text, video_duration text, video_discription text, analysis text, date text)""")
-        self.close()
-
-    def create_table_for_comments(self):
-
-        self.connect()
-        self.cursor.execute(f"""CREATE TABLE IF NOT EXISTS Comments 
-                        (_id text, comment text,
-                        FOREIGN KEY (_id) REFERENCES {self.table_name}(video_id) ON DELETE CASCADE)""")
-        self.close()
 
     def create_table_for_admins(self):
 
@@ -60,62 +41,9 @@ class SQL:
         self.cursor.execute(f"""INSERT INTO Admins VALUES ('{u_name}')""")
         self.close()
 
-    def print_comments(self, id_video):
-
+    def insert_into_moderators_table(self, u_name):
         self.connect()
-        try:
-            self.cursor.execute(f"SELECT * from Comments where _id = '{id_video}'")
-            comments = self.cursor.fetchall()
-        except:
-            comments = False
-
-        return comments
-        self.close()
-
-    def check_actuality_by_id(self, id_video):
-
-        self.connect()
-        self.cursor.execute(f"""SELECT * FROM {self.table_name} WHERE video_id = '{id_video}'""")
-
-        data_mass = self.cursor.fetchall()
-
-        if data_mass == []:
-            return False
-        else:
-            video_data = data_mass[0][-1].split('-')
-            rq_date = dt.date(int(video_data[0]), int(video_data[1]), int(video_data[2]))
-            rq_delta = dt.date.today() - rq_date
-
-            if rq_delta.days > 14:
-                self.delete(data_mass[0][0])
-                return False
-            else:
-                return True
-        self.close()
-
-    def insert(self, art):
-
-        self.connect()
-        date_of_entry = dt.date.today()
-        self.cursor.execute(f"""INSERT INTO {self.table_name} VALUES ('{art.video_id}',
-                            '{art.channel_name}', '{art.video_name}','{art.language}', '{art.comment_count}', 
-                            '{art.like_count}', '{art.dislike_count}', '{art.relation}', '{art.views_count}',
-                            '{art.tags_count}', '{art.video_duration}', '{art.video_discription}', 
-                            '{art.analysis}','{date_of_entry}')""")
-        self.close()
-
-    def extract_obj_by_id(self, id_video):
-
-        self.connect()
-        self.cursor.execute(f"""SELECT * FROM {self.table_name} WHERE video_id = '{id_video}'""")
-        obj = self.cursor.fetchall()
-        return obj
-        self.close()
-
-    def delete(self, delete_data):
-
-        self.connect()
-        self.cursor.execute(f"""DELETE FROM {self.table_name} WHERE youtube_link = '{delete_data}'""")
+        self.cursor.execute(f"""INSERT INTO Moderators VALUES ('{u_name}')""")
         self.close()
 
     def create_favourites_table(self):
@@ -145,6 +73,13 @@ class SQL:
             self.cursor.execute(f"""INSERT INTO Favourites VALUES ('{person_id}','{youtube_link}')""")
         self.close()
 
+    def check_in_favourites(self, username, link):
+        self.connect()
+        self.cursor.execute(f"""SELECT * FROM Favourites WHERE person_id = '{username}' and youtube_link = '{link}'""")
+        result = self.cursor.fetchall()
+        return result
+        self.close()
+
     def delete_from_favourites_table(self, user_id, link):
 
         self.connect()
@@ -157,11 +92,18 @@ class SQL:
         self.cursor.execute(f"""DELETE FROM Admins WHERE u_name = '{name}'""")
         self.close()
 
+    def delete_from_moderators_table(self, name):
+
+        self.connect()
+        self.cursor.execute(f"""DELETE FROM Moderators WHERE u_name = '{name}'""")
+        self.close()
+
     def print_favorites_table(self, user_id):
 
         self.connect()
         self.cursor.execute(f"""SELECT * FROM Favourites WHERE person_id = '{user_id}'""")
         massive = self.cursor.fetchall()
+        return massive
         self.close()
 
     def create_user_table(self):
@@ -203,21 +145,21 @@ class SQL:
     def get_user_admin(self, name):
         self.connect()
         self.cursor.execute(f"select u_name from Admins where u_name = '{name}'")
-        result = self.cursor.fetchall()
+        result = self.cursor.fetchone()
         return result
         self.close()
 
-    def get_user_moder(self, name):
+    def get_user_moderator(self, name):
         self.connect()
         self.cursor.execute(f"select u_name from Moderators where u_name = '{name}'")
-        result = self.cursor.fetchall()
+        result = self.cursor.fetchone()
         return result
         self.close()
 
     def get_user(self, name):
         self.connect()
         self.cursor.execute(f"select user_name from User where user_name = '{name}'")
-        result = self.cursor.fetchall()
+        result = self.cursor.fetchone()
         return result
         self.close()
 
@@ -225,15 +167,15 @@ class SQL:
 
         self.connect()
         self.cursor.execute(f"""CREATE TABLE IF NOT EXISTS Statistic 
-                        (u_name text, action text, date text,
+                        (u_name text, action text, date text, video_url text,
                         FOREIGN KEY (u_name) REFERENCES User (user_name) ON DELETE CASCADE)""")
         self.close()
 
-    def insert_into_statistic_table(self, name, action):
+    def insert_into_statistic_table(self, name, action, video_url):
 
         self.connect()
         date_of_entry = dt.date.today()
-        self.cursor.execute(f"""INSERT INTO Statistic VALUES ('{name}', '{action}', '{date_of_entry}')""")
+        self.cursor.execute(f"""INSERT INTO Statistic VALUES ('{name}', '{action}', '{date_of_entry}', '{video_url}')""")
         self.close()
 
     def print_actions_from_statistic_table(self, action):
@@ -263,14 +205,12 @@ class SQL:
         return result
         self.close()
 
-    def check_in_favourites(self, link):
-
+    def get_user_statistic(self, username):
         self.connect()
-        result = self.cursor.execute(f"select * from Favourites where youtube_link = '{link}'")
+        self.cursor.execute(f"Select video_url From Statistic Where u_name = '{username}' ORDER BY ROWID DESC LIMIT 5")
+        result = self.cursor.fetchall()
         return result
-        self.close()
 
-        # %%
 
 
 class Interaction:
@@ -278,8 +218,20 @@ class Interaction:
     def __init__(self, database):
         self.database = database
 
+    def create_statistic_table(self):
+        self.database.create_statistic_table()
+
     def create_table(self, name):
         self.database.create_table(name)
+
+    def create_table_for_comments(self):
+        self.database.create_table_for_comments()
+
+    def create_favourites_table(self):
+        self.database.create_favourites_table()
+
+    def create_user_table(self):
+        self.database.create_user_table()
 
     def input_data(self, data):
         self.database.insert(data)
@@ -291,9 +243,6 @@ class Interaction:
     def check_actuality_by_id(self, _id):
         res = self.database.check_actuality_by_id(_id)
         return res
-
-    def create_table_for_comments(self):
-        self.database.create_table_for_comments()
 
     def insert_into_comments_table(self, video_id, comment):
         self.database.insert_into_comments_table(video_id, comment)
@@ -309,22 +258,22 @@ class Interaction:
         res = self.database.get_user_admin(name)
         return res
 
-    def get_user_moder(self, name):
-        res = self.database.get_user_moder(name)
+    def get_user_moderator(self, name):
+        res = self.database.get_user_moderator(name)
         return res
 
     def get_user(self, name):
         res = self.database.get_user(name)
         return res
 
-    def create_favourites_table(self):
-        self.database.create_favourites_table()
-
     def insert_into_favourites_table(self, person_id, youtube_link):
         self.database.insert_into_favourites_table(person_id, youtube_link)
 
     def delete_from_admins_table(self, name):
         self.database.delete_from_admins_table(name)
+
+    def delete_from_moderators_table(self, name):
+        self.database.delete_from_moderators_table(name)
 
     def delete_from_favourites_table(self, user_id, link):
         self.database.delete_from_favourites_table(user_id, link)
@@ -333,14 +282,8 @@ class Interaction:
         string = self.database.print_favorites_table(user_id)
         return string
 
-    def create_user_table(self):
-        self.database.create_user_table()
-
     def create_table_for_admins(self):
         self.database.create_table_for_admins()
-
-    def create_table_for_moderators(self):
-        self.database.create_table_for_moderators()
 
     def insert_into_user_table(self, user_name, user_status):
         self.database.insert_into_user_table(user_name, user_status)
@@ -360,11 +303,8 @@ class Interaction:
         result = self.database.get_user_state(user_name)
         return result
 
-    def create_statistic_table(self):
-        self.database.create_statistic_table()
-
-    def insert_into_statistic_table(self, name, action):
-        self.database.insert_into_statistic_table(name, action)
+    def insert_into_statistic_table(self, name, action, video_url):
+        self.database.insert_into_statistic_table(name, action, video_url)
 
     def print_actions_from_statistic_table(self, action):
         result = self.database.print_actions_from_statistic_table(action)
@@ -374,5 +314,16 @@ class Interaction:
         result = self.database.check_week_new_users()
         return result
 
-    def check_in_favourites(self, link):
-        self.database.check_in_favourites(link)
+    def check_in_favourites(self, username, link):
+        result = self.database.check_in_favourites(username, link)
+        return result
+
+    def create_table_for_moderators(self):
+        self.database.create_table_for_moderators()
+
+    def insert_into_moderators_table(self, u_name):
+        self.database.insert_into_moderators_table(u_name)
+
+    def get_user_statistic(self, username):
+        result = self.database.get_user_statistic(username)
+        return result

@@ -1,26 +1,21 @@
+import telebot
 from telebot import types
 
 import sql
 
-user_role = "admin"
+user_role="admin"
 try:
     DataBase = sql.SQL('db.db')
     interaction = sql.Interaction(DataBase)
     interaction.create_table_for_admins()
+    interaction.create_table_for_moderators()
 except:
     pass
 
 
 def main_keyboard(message):
     keyboardmain = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-
-    if message.from_user.username is not None:
-        if interaction.get_user_admin(message.from_user.username) is not None:
-            keyboardmain.add("Функции администратора")
-    else:
-        if interaction.get_user_admin(message.from_user.id) is not None:
-            keyboardmain.add("Функции администратора")
-
+    keyboardmain.add("Функции администратора")
     keyboardmain.add("Анализ комментариев")
     keyboardmain.row("Избранное", "История")
 
@@ -31,7 +26,7 @@ def admin_keyboard():
     keyboard = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
     keyboard.add("Добавить нового администратора")
     keyboard.add("Удалить администратора")
-    keyboard.add("Добавить нового модератора")
+    keyboard.add("Добавить модератора")
     keyboard.add("Удалить модератора")
     keyboard.add("Посмотреть статистику")
     keyboard.add("Назад")
@@ -59,13 +54,9 @@ def new_users_keyboard():
 
 def analysis_keyboard(message):
     keyboard = types.ReplyKeyboardMarkup(one_time_keyboard=True, resize_keyboard=True)
-    if message.from_user.username is not None:
-        if (interaction.get_user_admin(message.from_user.username) or interaction.get_user_moder(message.from_user.username)) is not None:
-            keyboard.add("На канале")
-    else:
-        if (interaction.get_user_admin(message.from_user.id) or interaction.get_user_moder(message.from_user.id)) is not None:
-            keyboard.add("На канале")
+    keyboard.add("На канале")
     keyboard.add("Под видео")
+    keyboard.add("Wordcloud")
     keyboard.add("Назад")
 
     return keyboard
