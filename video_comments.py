@@ -9,6 +9,7 @@ import json
 import pandas as pd
 from helper import openURL
 from config import YOUTUBE_COMMENT_URL
+from database_for_videos_scripts import DataBaserForVideos
 
 class VideoComment:
     def __init__(self, maxResults, videoId, key):
@@ -49,11 +50,19 @@ class VideoComment:
             url_response = json.loads(openURL(YOUTUBE_COMMENT_URL, self.params))
             nextPageToken = url_response.get("nextPageToken")
             self.load_comments(url_response)
-        self.create_df()
+        self.write_comments_to_database()
+        # self.create_df()
 
+    # Сделать так, чтобы данные из словарей клались в бд, а не в файл
     def create_df(self):
         df = pd.DataFrame().from_dict(self.comments)
         df.to_csv("parent_video_comment.csv")
 
         df = pd.DataFrame().from_dict(self.replies)
         df.to_csv("comment_reply.csv")
+
+
+    def write_comments_to_database(self):
+        DataBaserForVideos.insert_comments_to_database(self.comments["comment"], self.params["videoId"])
+        DataBaserForVideos.insert_comments_to_database(self.replies["comment"], self.params["videoId"])
+

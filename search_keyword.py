@@ -61,6 +61,7 @@ class searchVideo:
         self.create_df()
 
     def create_df(self):
+
         df = pd.DataFrame().from_dict(self.videos)
         df.to_csv(SAVE_PATH+"search_term_videos.csv")
 
