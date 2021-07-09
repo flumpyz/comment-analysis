@@ -1,4 +1,4 @@
-#-*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 __author__ = "Chirag Rathod (Srce Cde)"
 __license__ = "GPL 3.0"
 __email__ = "chiragr83@gmail.com"
@@ -11,17 +11,18 @@ from helper import openURL
 from config import YOUTUBE_COMMENT_URL
 from database_for_videos_scripts import DataBaserForVideos
 
+
 class VideoComment:
-    def __init__(self, maxResults, videoId, key):
+    def __init__(self, max_results, video_id, key):
         self.comments = defaultdict(list)
         self.replies = defaultdict(list)
         self.params = {
-                    'part': 'snippet,replies',
-                    'maxResults': maxResults,
-                    'videoId': videoId,
-                    'textFormat': 'plainText',
-                    'key': key
-                }
+            'part': 'snippet,replies',
+            'maxResults': max_results,
+            'videoId': video_id,
+            'textFormat': 'plainText',
+            'key': key
+        }
 
     def load_comments(self, mat):
         for item in mat["items"]:
@@ -61,8 +62,6 @@ class VideoComment:
         df = pd.DataFrame().from_dict(self.replies)
         df.to_csv("comment_reply.csv")
 
-
     def write_comments_to_database(self):
         DataBaserForVideos.insert_comments_to_database(self.comments["comment"], self.params["videoId"])
         DataBaserForVideos.insert_comments_to_database(self.replies["comment"], self.params["videoId"])
-

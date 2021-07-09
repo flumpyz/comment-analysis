@@ -17,7 +17,7 @@ class DataBaserForVideos:
             FOREIGN KEY (channel_id) REFERENCES channels(id));
         """)
         curs.execute("""CREATE TABLE IF NOT EXISTS comments(
-            id INT PRIMARY KEY autoincrement,
+            id INTEGER PRIMARY KEY autoincrement,
             comment TEXT NOT NULL,
             video_id INT NOT NULL,
             FOREIGN KEY (video_id) REFERENCES videos(id));
@@ -26,7 +26,7 @@ class DataBaserForVideos:
 
     @staticmethod
     def insert_comments_to_database(comments, video_id):
-        global connection
+        connection = None
         try:
             connection = sqlite3.connect('youtube.db')
             cur = connection.cursor()
@@ -49,48 +49,70 @@ class DataBaserForVideos:
 
     @staticmethod
     def insert_channel_to_database(channel_id):
-        global con
+        connection = None
         try:
-            con = sqlite3.connect('youtube.db')
+            connection = sqlite3.connect('youtube.db')
             cur = connection.cursor()
-            DataBaserForVideos.create_tables(cur, con)
+            DataBaserForVideos.create_tables(cur, connection)
             cur.execute("INSERT INTO channels(id) VALUES(?);", channel_id)
             connection.commit()
+            cur.close()
+
         except sqlite3.Error as error:
             print("Ошибка при работе с SQLite", error)
 
         finally:
-            if con:
-                con.close()
+            if connection:
+                connection.close()
                 print("Соединение с SQLite закрыто")
                 return channel_id
 
     @staticmethod
     def insert_video_to_database(video_id, video_name, video_link, download_date, channel_id=0):
-        global conn
+        connection = None
         video_information = (video_id, video_name, video_link, download_date, channel_id)
         video_id = None
         try:
-            conn = sqlite3.connect('youtube.db')
+            connection = sqlite3.connect('youtube.db')
             cur = connection.cursor()
-            DataBaserForVideos.create_tables(cur, conn)
+            DataBaserForVideos.create_tables(cur, connection)
             cur.execute("INSERT INTO videos(id, name, link_to_video, date_of_download, channel_id) "
                         "VALUES(?, ?, ?, ?, ?);",
                         video_information)
             connection.commit()
+            cur.close()
 
         except sqlite3.Error as error:
             print("Ошибка при работе с SQLite", error)
 
         finally:
-            if conn:
-                conn.close()
+            if connection:
+                connection.close()
                 print("Соединение с SQLite закрыто")
                 return video_id
 
-    # Реализовать. Метод должен по video_id озвращать либо True, либо False
+    # Реализовать. Метод должен по video_id возвращать либо True, либо False
     # True - если в базе данных есть данные о видео с данным id,
     # False - если в базе данных нет данных о видео с таким id
     @staticmethod
     def check_is_video_in_database(video_id):
-        return False
+        connection = None
+        is_video_in_database = False
+        try:
+            connection = sqlite3.connect('youtube.db')
+            cur = connection.cursor()
+            DataBaserForVideos.create_tables(cur, connection)
+            cur.execute("""SELECT * FROM videos WHERE video_id = ?""", video_id)
+            lines_in_request = cur.fetchall()
+            if len(lines_in_request) != 0:
+                is_video_in_database = True
+            cur.close()
+
+        except sqlite3.Error as error:
+            print("Ошибка при работе с SQLite", error)
+
+        finally:
+            if connection:
+                connection.close()
+                print("Соединение с SQLite закрыто")
+                return is_video_in_database

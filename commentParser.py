@@ -11,7 +11,7 @@ from video_comments import VideoComment
 import urllib
 from urllib import request
 import json
-apiKey = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
+apiKey = "AIzaSyCadW9QMKGKC6KV9eO0qu1ZavQwvjnch_E"
 
 os.makedirs("bot/output", exist_ok=True)
 parser = argparse.ArgumentParser()
@@ -40,3 +40,4 @@ def get_information_from_youtube_video(video_id):
     resp = json.load(inp)
 
     return resp['items'][0]['statistics']['commentCount']
+

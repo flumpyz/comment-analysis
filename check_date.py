@@ -14,7 +14,7 @@ def get_key(dic, value):
 
 
 def check_date_of_download(date_of_download):
-    return begin_period <= date_of_download <= end_period
+    return begin_period <= datetime.strptime(date_of_download, "%Y-%m-%dT%H:%M:%SZ") <= end_period
     # Закомментила, не нужно
     # hashmap = {}
     # with open('list_to_csv.csv', newline='', encoding='utf-8') as csv_file:
@@ -49,7 +49,7 @@ def get_dictionary_of_video_links_with_correct_date_and_date():
 def check_date_phase_two(hash_date, hashmap):
     for el in hash_date:
         if begin_period <= el <= end_period:
-            commentParser.getCommentsFromVideo(get_key(hashmap, el), 0)
+            commentParser.get_comments_from_video(get_key(hashmap, el), 0)
             return copy_cSv.copy_please()
         elif el < begin_period or el > end_period:
             continue

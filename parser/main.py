@@ -1,6 +1,7 @@
 import videoParser as cm
 import check_date as cd
 from datetime import datetime
+import commentParser as cp
 #import youtube.check_date as cd
 
 #URLvid = "https://www.youtube.com/watch?v=vYkD3GU-rvA"
@@ -9,6 +10,9 @@ import urllib.request
 import json
 import urllib
 import pprint
+
+cp.getCommentsFromVideo("https://www.youtube.com/watch?v=d5rvy5XPyzk", 200)
+cm.write_comments_from_channel_to_database("UCyEjQOeF0Vi6JC8zf5RCoHA")
 
 #change to yours VideoID or change url inparams
 # cm.write_video_information_to_database(0)

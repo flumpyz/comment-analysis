@@ -6,8 +6,8 @@ import check_date as cd
 from database_for_videos_scripts import DataBaserForVideos
 
 
-def write_videos_inf_from_channel_to_database(channel_id):
-    api_key = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
+def write_comments_from_channel_to_database(channel_id):
+    api_key = "AIzaSyCadW9QMKGKC6KV9eO0qu1ZavQwvjnch_E"
 
     base_video_url = 'https://www.youtube.com/watch?v='
     base_search_url = 'https://www.googleapis.com/youtube/v3/search?'
