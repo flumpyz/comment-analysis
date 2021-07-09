@@ -251,12 +251,14 @@ def processing_message(message):
                     interaction.insert_into_statistic_table(str(message.from_user.id), "wcb", message.text)
                 link_video6 = message.text
                 comments_count = cp.get_information_from_youtube_video(message.text[32:43])
+                for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
+                    time.sleep(0.5)
                 bot.send_message(message.chat.id, "Выводим wordcloud анализ", reply_markup=keyboards.back_keyboard())
                 wc.make_picture(message.text)
                 wphoto = open('WordCloud_pic.png', 'rb')
                 bot.send_photo(message.chat.id, wphoto)
                 for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
-                    time.sleep(0.5)
+                    time.sleep(0.3)
             except:
                 bot.send_message(message.chat.id, "Что-то пошло не так, повторите запрос")
                 pass
@@ -301,6 +303,8 @@ def processing_message(message):
                 channel_id = message.text[32:56]
                 vp.getVideoFromChannel(channel_id)
                 dc.check_date(message.text[57:67], message.text[68:78])
+                #for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
+                    #time.sleep(3.3)
                 comments = SentimentDeterminant.get_sentiment_array_from_file()
                 Visualizer.build_a_schedule(comments)
                 f = open("schedule.svg", "rb")
