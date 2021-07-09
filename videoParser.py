@@ -4,7 +4,7 @@ import csv
 
 
 def getVideoFromChannel(channel_id):
-    api_key = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
+    api_key = "AIzaSyB6y9Is0XZchvbHuFRlhRQIgt636tJwClg"
 
     base_video_url = 'https://www.youtube.com/watch?v='
     base_search_url = 'https://www.googleapis.com/youtube/v3/search?'

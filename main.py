@@ -5,7 +5,7 @@
 from sentiment_determinant import SentimentDeterminant
 from visualizer import Visualizer
 import commentParser as cp
-import check_date as cd
+import DateChecker as cd
 
 
 def print_hi(name):

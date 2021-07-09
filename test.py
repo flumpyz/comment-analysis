@@ -8,6 +8,7 @@ from sentiment_determinant import SentimentDeterminant
 from sql import SQL
 from visualizer import Visualizer
 from word_cloud import Word_Cloud as wc
+from DateChecker import Date_Checker as dc
 
 
 DataBase = sql.SQL('VideoDatabase')
@@ -17,7 +18,7 @@ interaction.create_statistic_table()
 interaction.create_table_for_admins()
 interaction.create_favourites_table()
 interaction.create_table_for_moderators()
-
-url = "https://www.youtube.com/watch?v=zyOcvb4-3-E"
-info_from_video = cp.get_information_from_youtube_video(url[32:43])
-print(info_from_video[1])
+message = 'https://www.youtube.com/channel/UC_WdeoiTXMr-c_jMSP7PLmQ 2021-07-06 2021-07-10'
+id = message[32:56]
+vp.getVideoFromChannel(id)
+dc.check_date(message[57:67], message[68:78])

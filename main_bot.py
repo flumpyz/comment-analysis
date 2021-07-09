@@ -9,6 +9,8 @@ from visualizer import Visualizer
 from word_cloud import Word_Cloud as wc
 import time
 from tg_tqdm import tg_tqdm
+from DateChecker import Date_Checker as dc
+import videoParser as vp
 
 bot = telebot.TeleBot('1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y')
 
@@ -228,13 +230,13 @@ def processing_message(message):
                                  "Анализ комментариев может занять некоторое время, пожалуйста, дождитесь результата.")
                 bot.link_video1 = message.text
                 comments_count = cp.get_information_from_youtube_video(message.text[32:43])
-                for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
-                    time.sleep(3.3)
                 cp.getCommentsFromVideo(bot.link_video1, 0)
                 comments = SentimentDeterminant.get_sentiment_array_from_file()
                 Visualizer.build_a_schedule(comments)
                 f = open("schedule.svg", "rb")
                 bot.send_document(message.chat.id, f)
+                for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
+                    time.sleep(0.3)
             except:
                 bot.send_message(message.chat.id, "Произошла непредвиденная ошибка, попробуйте еще раз. Если ошибка "
                                                   "не исправляется - попробуйте удалить чат с ботом и попробовать "
@@ -249,12 +251,12 @@ def processing_message(message):
                     interaction.insert_into_statistic_table(str(message.from_user.id), "wcb", message.text)
                 link_video6 = message.text
                 comments_count = cp.get_information_from_youtube_video(message.text[32:43])
-                for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
-                    time.sleep(3.5)
                 bot.send_message(message.chat.id, "Выводим wordcloud анализ", reply_markup=keyboards.back_keyboard())
                 wc.make_picture(message.text)
                 wphoto = open('WordCloud_pic.png', 'rb')
                 bot.send_photo(message.chat.id, wphoto)
+                for _ in tg_tqdm(range(int(comments_count)), "1898335775:AAGrZ6w2Mhk1oMZVZHqg7P4hicEXms8e76Y", message.chat.id):
+                    time.sleep(0.5)
             except:
                 bot.send_message(message.chat.id, "Что-то пошло не так, повторите запрос")
                 pass
@@ -285,6 +287,28 @@ def processing_message(message):
 
         else:
             bot.send_message(message.chat.id, "Возникла ошибка.")
+            SetState(message, 0)
+
+    elif message.text[0:32] == "https://www.youtube.com/channel/":
+        if GetState(message) == 2:
+            try:
+                if message.from_user.username is not None:
+                    interaction.insert_into_statistic_table(message.from_user.username, "cc", message.text)
+                else:
+                    interaction.insert_into_statistic_table(str(message.from_user.id), "cc", message.text)
+                bot.send_message(message.chat.id,
+                                 "Анализ комментариев может занять некоторое время, пожалуйста, дождитесь результата.")
+                channel_id = message.text[32:56]
+                vp.getVideoFromChannel(channel_id)
+                dc.check_date(message.text[57:67], message.text[68:78])
+                comments = SentimentDeterminant.get_sentiment_array_from_file()
+                Visualizer.build_a_schedule(comments)
+                f = open("schedule.svg", "rb")
+                bot.send_document(message.chat.id, f)
+            except:
+                bot.send_message(message.chat.id, "Произошла непредвиденная ошибка, попробуйте еще раз. Если ошибка "
+                                                  "не исправляется - попробуйте удалить чат с ботом и попробовать "
+                                                  "сначала")
             SetState(message, 0)
 
     else:

@@ -11,17 +11,17 @@ from video_comments import VideoComment
 import urllib
 from urllib import request
 import json
-apiKey = "AIzaSyCBylxi4V37XA58B1JbhbUvMrvsbgSrHpg"
+apiKey = "AIzaSyB6y9Is0XZchvbHuFRlhRQIgt636tJwClg"
 
 os.makedirs("bot/output", exist_ok=True)
 parser = argparse.ArgumentParser()
 
 
 def getCommentsFromVideo(videourl, maxComments):
-    parser.add_argument("--c", help="calls comment function by keyword function", action='store_true')
-    parser.add_argument("--max", help="number of comments to return", default=10)
-    parser.add_argument("--videourl", help="Required URL for which comments to return", required=True)
-    parser.add_argument("--key", help="Required API key", required=True)
+    #parser.add_argument("--c", help="calls comment function by keyword function", action='store_true')
+    #parser.add_argument("--max", help="number of comments to return", default=10)
+    #parser.add_argument("--videourl", help="Required URL for which comments to return", required=True)
+    #parser.add_argument("--key", help="Required API key", required=True)
     video_id = urlparse(str(videourl))
     q = parse_qs(video_id.query)
     vid = q["v"][0]

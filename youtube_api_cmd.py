@@ -41,10 +41,10 @@ class YouTubeApi():
         parser = argparse.ArgumentParser()
         mxRes = 20
         vid = str()
-        parser.add_argument("--c", help="calls comment function by keyword function", action='store_true')
-        parser.add_argument("--max", help="number of comments to return")
-        parser.add_argument("--videourl", help="Required URL for which comments to return")
-        parser.add_argument("--key", help="Required API key")
+        #parser.add_argument("--c", help="calls comment function by keyword function", action='store_true')
+        #parser.add_argument("--max", help="number of comments to return")
+        #parser.add_argument("--videourl", help="Required URL for which comments to return")
+        #parser.add_argument("--key", help="Required API key")
 
         args = parser.parse_args()
 

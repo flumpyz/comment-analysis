@@ -1,51 +1,68 @@
 ,parentId,authorDisplayName,replyComment,publishedAt,likeCount
-0,UgwIXMYVmzGfTVtw9SN4AaABAg,Едим ТВ,Какого именно? :-),2021-07-06T08:07:32Z,0
-1,UgxPeBmsyyETDzvH2xR4AaABAg,Zhanel Sh,@Едим ТВ а соду куда сыпать?,2021-07-05T19:50:08Z,1
-2,UgxPeBmsyyETDzvH2xR4AaABAg,Едим ТВ,https://youtu.be/PAQipiLwZFc,2021-07-05T01:48:43Z,1
-3,UgwIDH9mrCME4pWKidJ4AaABAg,Feniks Schwarz,Обычно это стримом называется =),2021-07-02T22:30:48Z,0
-4,UgxsYS5CH0zNJPaGR8t4AaABAg,Едим ТВ,Конечно.,2021-07-02T07:18:13Z,1
-5,Ugx3U-6q5WFpp-6LduV4AaABAg,Ретрансляция,"@Reimu Hakurei много очень годных комментариев, автор не прислушиваться",2021-07-03T21:09:31Z,0
-6,Ugx3U-6q5WFpp-6LduV4AaABAg,Reimu Hakurei,"половина комментариев про очередной бронепоезд и какую-то муть в духе - добавь в кровавую мэри не одну водку, а другую, типа новый коктейль",2021-07-03T12:53:38Z,2
-7,UgynE1nCCasEgQOKQ914AaABAg,Едим ТВ,"Отдельного выпуска нет, но есть поиск по сайту",2021-07-01T22:28:59Z,0
-8,Ugz0IACOwuz-0FYRr5J4AaABAg,Едим ТВ,У нас было несколько,2021-07-01T22:32:02Z,0
-9,Ugw-NGQMZDLoLsZndMt4AaABAg,Едим ТВ,Вы узнали главный секрет барменов. Все коктейли — самогон с Буратино. Только никому не говорите,2021-07-01T22:33:07Z,4
-10,Ugzb1kbk71dt7n-Ml4N4AaABAg,Едим ТВ,Да я и так каждый вторник в качестве бармена,2021-07-01T14:35:06Z,0
-11,UgyrkqCYJ-reJncwe5p4AaABAg,Едим ТВ,"Вы нас с кем-то путаете. Ёрш остался на месте (и Рич-н-бич, и старый выпуск дома)",2021-07-01T12:42:04Z,1
-12,UgzES2NG4Vofsnl79EV4AaABAg,Едим ТВ,"Вот видите, сами лучше нашли :-)",2021-07-01T14:10:02Z,1
-13,UgzES2NG4Vofsnl79EV4AaABAg,Рифат Садеков,"@Едим ТВ бранка из Италии а Шток из Чехии + выдержка из статьи
-Несмотря на принадлежность к одному и тому же виду алкоголя, Шток ни в коем случае нельзя путать с Бранкой – у этих напитков совершенно разный состав, «пересекающийся» только несколькими ингредиентами, и, соответственно, разный вкус.",2021-07-01T13:00:54Z,0
-14,UgzES2NG4Vofsnl79EV4AaABAg,Едим ТВ,"Разные варианты одного и того же, скорее. Почитайте, в инете есть сравнения вроде",2021-07-01T12:42:39Z,0
-15,UgxcBOXzlPBtn_j3sZR4AaABAg,Едим ТВ,Очень сложно. А без ваших советов-то совсем невмоготу.,2021-07-01T10:29:50Z,6
-16,UgwHJAF0NJI36k6vTE14AaABAg,Mishagood,"Manarita - хорошие коктейли , с арбузом вообще хорошо.",2021-07-01T12:21:15Z,0
-17,UgwHJAF0NJI36k6vTE14AaABAg,Андрей К.,"@Едим ТВ как грубо) но сообщение было замечено, разве это не плюс?)",2021-07-01T10:47:22Z,0
-18,UgwHJAF0NJI36k6vTE14AaABAg,Едим ТВ,"Пока я вас не забаню, если быть точным",2021-07-01T09:48:45Z,2
-19,UgymearBSh_nOshiwtB4AaABAg,Ян Тулинов,@Pavel Danelyuk Спасибо Павел.,2021-07-01T11:13:25Z,0
-20,UgymearBSh_nOshiwtB4AaABAg,Pavel Danelyuk,@Ян Тулинов Он чувствительно слаще,2021-07-01T11:08:31Z,1
-21,UgymearBSh_nOshiwtB4AaABAg,Ян Тулинов,@Едим ТВ Amaro Montenegro,2021-07-01T09:55:41Z,0
-22,UgymearBSh_nOshiwtB4AaABAg,Едим ТВ,Амаро бывают разные.,2021-07-01T09:49:21Z,0
-23,UgyZoy-wFadmZdXAiMR4AaABAg,Едим ТВ,"Не портятся, но выдыхаются потихоньку",2021-07-01T09:49:38Z,2
-24,UgxGgV7HA0vSBkevbC14AaABAg,Дмитрий Реутов,"В олд фэшн, например",2021-07-06T10:59:12Z,0
-25,Ugxix5WkDBpzf5cl16J4AaABAg,Дмитрий Реутов,Все правильно записал,2021-07-06T10:58:55Z,0
-26,Ugxix5WkDBpzf5cl16J4AaABAg,Mishagood,"Глотки считать в кубометрах , литрах или куб. дюймах?  Ну и чем больше - тем лучше.",2021-07-01T12:41:02Z,1
-27,Ugxix5WkDBpzf5cl16J4AaABAg,Андрей К.,"В целом все верно, но можно больше глотков 😀",2021-07-01T09:57:44Z,2
-28,Ugz-_LcyZcZXYrepH8l4AaABAg,Едим ТВ,Никто не знает.,2021-07-01T09:05:11Z,5
-29,UgxGKLczJU1bgZ475j94AaABAg,Narryel,Энзони топчик. у Steve the bartender классный видос,2021-07-01T10:33:43Z,0
-30,UgxGKLczJU1bgZ475j94AaABAg,megaman13able,И белый Негрони еще),2021-07-01T09:37:51Z,0
-31,Ugy6h9fOsOnV3JE4CYJ4AaABAg,Julia Mirvis,А машинистом кто будет? Феникс уже из пепла не восстанет...,2021-07-01T18:11:28Z,1
-32,UgwKRigWiEdZRmsZkut4AaABAg,Едим ТВ,🤷‍♂️,2021-07-01T08:46:09Z,1
-33,UgxfiOKZ1BfAYg5uf914AaABAg,Нирвана Ли,@megaman13able о! Спасибо!,2021-07-03T00:14:50Z,1
-34,UgxfiOKZ1BfAYg5uf914AaABAg,megaman13able,"@Нирвана Ли Я лично брал в винотеке на Уссурийском бульваре (и спустя полгода был там, завезли новую бутылочку), еще видел в винотеке Noir на Ленина",2021-07-02T16:39:19Z,0
-35,UgxfiOKZ1BfAYg5uf914AaABAg,Нирвана Ли,"@megaman13able Я весь Хабаровск обшарила! Только в одном магазине продавцы сказали, что иногда появляется, но давно не было",2021-07-02T16:22:46Z,0
-36,UgxfiOKZ1BfAYg5uf914AaABAg,megaman13able,"Приезжай к нам в Хабаровск 😂 у нас за 2 тыщи продается в паре винных бутиков. Наверно и во Владике есть винотеки, поищи там",2021-07-01T09:37:26Z,0
-37,UgxfiOKZ1BfAYg5uf914AaABAg,Fri-end st,"Сам долго искал, нашел в winestudio. Сейчас там только апельсиновая ангостура осталась",2021-07-01T09:34:20Z,0
-38,Ugy1lh9-oIXX6TVM74h4AaABAg,Андрей Цюпка,@Едим ТВ Спасибо за ответ.,2021-07-01T08:34:17Z,0
-39,Ugy1lh9-oIXX6TVM74h4AaABAg,Едим ТВ,Прозрачный (для подачи) — заказываю. Для шейка — просто морожу.,2021-07-01T08:20:53Z,1
-40,Ugw2HoMB5cXtCTFlBAN4AaABAg,Alex,берете любой рецепт где есть водка и меняете её на зубровку :),2021-07-05T12:35:55Z,1
-41,Ugw2HoMB5cXtCTFlBAN4AaABAg,Игорь Цехановский,«Польский мартини» ещё есть,2021-07-01T10:26:44Z,0
-42,Ugw2HoMB5cXtCTFlBAN4AaABAg,Едим ТВ,"Берете сидр.
-Добавляете жубровку.
-...
-Профит.",2021-07-01T09:04:23Z,19
-43,Ugw2HoMB5cXtCTFlBAN4AaABAg,Фита,Варшавский договор👌,2021-07-01T08:53:31Z,1
-44,Ugy1lvAR7w6FIYqpL0l4AaABAg,Павел Коломиец,"@skyjacker70rus большое сердце у вас, цэ хорошо))",2021-07-01T08:19:56Z,1
-45,Ugy1lvAR7w6FIYqpL0l4AaABAg,skyjacker70rus,в моём сердце места хватает на двоих,2021-07-01T08:17:58Z,5
+0,Ugxm_K6SQ8hvOotjN_p4AaABAg,Big Dog,"@Alan Zimmer man once you get call of chernobyl up and running, you'll never want to leave",2021-06-25T06:37:41Z,0
+1,Ugxm_K6SQ8hvOotjN_p4AaABAg,Alan Zimmer,"Stalker does that to ya, in that weird way that just drags you deeper into the game. Makes ya really feel like a rookie. If you get real hooked on the game get Call of Pripyat. As long as you have it installed you can get the Call of Chernobyl standalone mod that combines all three games.",2021-06-20T03:57:40Z,0
+2,UgxhmcWTBX_BLJl6kq14AaABAg,Kynxze Amv,Anyways subscribed,2021-06-19T05:39:36Z,0
+3,UgzccbAOK5PIvfbkLn14AaABAg,Брудли Блюа,Hopefully by the Time stalker 2 comes out there will be like anomaly 3.0 or something,2021-06-15T09:35:22Z,0
+4,UgzhVVpM9g6sPsURFcp4AaABAg,Claudio Cianci,Same here....a fucking waste of about 400ammo xdxdxd,2021-06-14T23:30:08Z,6
+5,UgzhVVpM9g6sPsURFcp4AaABAg,Krystian Granat,I actually did. I think twice xD,2021-06-13T00:40:02Z,5
+6,UgwUThmc_NR5yt9iJLF4AaABAg,kosstar YT,А поновее ничего нету?,2021-06-08T17:33:05Z,1
+7,UgzmjAb_Bj7dAi3Rr2x4AaABAg,Roberto Innocenti Risaliti,*not like germany is hellish enough*,2021-06-11T09:16:28Z,3
+8,UgwLOs23ENgWuduzqrB4AaABAg,Eugene Kassakov,"@Dushess Блин, так не смешно же!",2021-06-05T20:39:49Z,1
+9,UgwLOs23ENgWuduzqrB4AaABAg,Dushess,"EVERYTHING YOU GONNA TRY IS USELESS. JUST WATCH EVERYONE AND EVERYTHING AROUND IS SOMELIKE POSESSED WITH IT! YOU WANNA LEAVE BUT YOU ALREADY HAVE IT INSIDE, LIKE EVERYONE FROM HERE. YOUR AMBITIONS, YOUR CRUELITY, YOUR DREAMS. EVERYTHING MAY BE, IF YOU HAVE 'FREE WILL TO ACT' AND NO ANY REAL LIMITATIONS OF THE GREED INSIDE OF YOU. YOU CAN'T LEAVE IT IF YOU ALREADY PART OF IT, NOW LIVE THE REST OF YOUR TIME WITH THAT!",2021-06-05T20:15:26Z,0
+10,Ugz-NIKvnsjhyfR4KQZ4AaABAg,горбушка,he said this without word SO.,2021-06-26T23:05:30Z,0
+11,UgzFyvQETEnbHpuCuUx4AaABAg,Ryan H,"@sl1ck i do not like having sexual relations with mutants, sorry... ill have to pass on joining the pothead cult.",2021-06-18T08:32:03Z,1
+12,UgzFyvQETEnbHpuCuUx4AaABAg,Katus49,@MingTuck Chung i like being loner too. I like killing bandits in their base while listening to their tune.,2021-06-12T07:22:54Z,1
+13,UgzFyvQETEnbHpuCuUx4AaABAg,sl1ck,"@Captain Fordo Dooty doesn’t understand the zone, nor does it have the intuition to understand that the zone cannot be contained by being shot at, and should be studied. Join Freedom!",2021-06-11T14:41:07Z,2
+14,UgzFyvQETEnbHpuCuUx4AaABAg,Mice,@Captain Fordo yikes dooty get off my swamp REEEEEEEEE!!!!,2021-06-11T12:48:11Z,5
+15,UgzFyvQETEnbHpuCuUx4AaABAg,MingTuck Chung,@Captain Fordo No! I like being Loner because only loners have the right to stand there watch people die like an idiot! Hahahaha!!!,2021-06-11T11:01:45Z,2
+16,UgzkxlZ9KeAxueB8LIR4AaABAg,Vladimir Markov,Berlin wall was appgraded with brain washer.,2021-06-20T23:18:16Z,0
+17,UgzkxlZ9KeAxueB8LIR4AaABAg,Roberto Innocenti Risaliti,*not like berlin was bad enough*,2021-06-16T23:19:31Z,1
+18,UgzkxlZ9KeAxueB8LIR4AaABAg,Mice,yeah the adventures towards Berlin wasn't fun,2021-06-11T12:46:57Z,7
+19,UgzkxlZ9KeAxueB8LIR4AaABAg,Roberto Innocenti Risaliti,*literally so true*,2021-06-11T09:15:07Z,4
+20,UgybzWBovQZ7KvEG-mJ4AaABAg,Roberto Innocenti Risaliti,*berlin technically*,2021-06-16T23:18:25Z,20
+21,UgybzWBovQZ7KvEG-mJ4AaABAg,unknown9337,It good to have humor in the battlefield,2021-06-14T19:16:22Z,33
+22,UgwVoxLuMkvY2KZWo6p4AaABAg,Игорь 🔪,ахахахахахахаха ну ты выдал,2021-06-05T12:43:33Z,0
+23,Ugwh6owNSLdzDI5YPjx4AaABAg,Eyeball Papercut,"@Космодесантник Кровавых Воронов Do you feel like an artifact hunter, yet?",2021-06-18T13:58:09Z,5
+24,Ugwh6owNSLdzDI5YPjx4AaABAg,Космодесантник Кровавых Воронов,@Eyeball Papercut please dont make me rememver Dubai...,2021-06-18T11:20:55Z,7
+25,Ugwh6owNSLdzDI5YPjx4AaABAg,Eyeball Papercut,"""Gentlemen... Welcome to Chornobyl.""",2021-06-08T18:16:11Z,18
+26,Ugyro8Xic7FJebarYj14AaABAg,Nakilon,Подтверждаю. И колокольчик включен.,2021-06-06T13:04:02Z,0
+27,Ugyro8Xic7FJebarYj14AaABAg,Артур Метроо,Похожая штука,2021-06-05T19:40:32Z,0
+28,Ugz_SDdJ6eGf__HdxLp4AaABAg,Dan DA,"Маслины повытаскивал
+Фить-ха",2021-06-05T21:56:40Z,10
+29,Ugz-3gI97WrlzFKin2J4AaABAg,Monolith,not here brother,2021-06-05T17:54:13Z,0
+30,UgzipmuG26r84emNu1p4AaABAg,Łoś,@Mialisus my automatically connects loners with brown color of leather coats of rookies from cordon,2021-06-13T22:13:08Z,1
+31,UgzipmuG26r84emNu1p4AaABAg,Mialisus,"@Łoś 
+Monolith is arctic white and blue.
+Mercenary is navy blue.
+Loner has no specific colour but usually dull green, gray-red and gray-green.
+Bandits are either tan-brown or edgy black.
+Ecologists vary as well but they're bright orange/mild blue.
+Military goes for lively camo green, usually brighter than loners.
+Clear Sky shares the same colours with Monolith, but with more blue. If you know the ending of CS, then it makes sense.",2021-06-13T19:40:53Z,1
+32,UgzipmuG26r84emNu1p4AaABAg,join freedom,"@Łoś accurate enough, i guess",2021-06-07T00:58:28Z,2
+33,UgzipmuG26r84emNu1p4AaABAg,Łoś,"""Duty"" is red like blood spilled at war.
+""Clear Sky"" is blue like clear sky.
+""Freedom"" is green like... like ummm
+Marijuana",2021-06-06T19:23:54Z,29
+34,UgzipmuG26r84emNu1p4AaABAg,Dushess,"If Duty soldier: I not gonna be fooled by fu-in' fanatic.
+*gunfire noises*",2021-06-05T20:10:33Z,4
+35,UgwkwKc4nzMrGwT7_KJ4AaABAg,Elongated Egg,100% sfm,2021-06-08T11:56:20Z,0
+36,UgwkwKc4nzMrGwT7_KJ4AaABAg,brumo,Maybe gmod. i try making this with gmod but it's not really that good,2021-06-04T14:36:48Z,0
+37,Ugy9oyn5-J0uTXEWhSB4AaABAg,AloneGamer,That's the Duty faction mission,2021-07-09T17:02:50Z,0
+38,Ugy9oyn5-J0uTXEWhSB4AaABAg,олень из будущего,Блин да мне смешно же,2021-07-04T05:59:02Z,1
+39,Ugy9oyn5-J0uTXEWhSB4AaABAg,Haruno Caleon,@celph titled I doubt anyone that irradiated can even think,2021-07-01T22:30:01Z,0
+40,Ugy9oyn5-J0uTXEWhSB4AaABAg,Deft,"The Zone threw everything it had at Strelok and he still stomped all over it lol, the Zone is nothing compared to Strelok, he already cleared all the challenges it had, in fact he did it multiple times",2021-06-20T19:11:21Z,10
+41,Ugy9oyn5-J0uTXEWhSB4AaABAg,celph titled,i doubt he can think anymore given the fact that he's under the influence of the brain scorcher.,2021-06-08T13:56:03Z,21
+42,UgzPXj6qK6l6wmexOkF4AaABAg,Т72Б3 Гурьев,Ну ты выдал,2021-06-04T15:29:49Z,1
+43,UgwPpqCzpMK3ID08oF54AaABAg,Тенчел Ширимээ,@Uidy пп из бравл старс,2021-07-06T03:57:02Z,0
+44,UgwPpqCzpMK3ID08oF54AaABAg,горбушка,@DEFTER X камшот,2021-06-26T23:04:04Z,0
+45,UgwPpqCzpMK3ID08oF54AaABAg,MEMDIC,Ты-б ещё про Штирлица рассказал!,2021-06-20T11:06:00Z,0
+46,UgwPpqCzpMK3ID08oF54AaABAg,Станислав Семенченко,"@DEFTER X да так незнал как и обьяснить мне было, один момент от БэкаКомедию, пошол зглянуть чтоб убедица и о×=евал от названия",2021-06-17T16:19:33Z,0
+47,UgwPpqCzpMK3ID08oF54AaABAg,Ultra_b,@Uidy пп Team Fortress 2,2021-06-12T14:13:28Z,0
+48,UgztJG4dFmscb86VCBR4AaABAg,Burning Sinner,"У нас в ""Монолите"" за такие вопросы на ""радаре"" поджаривают до хрустящей корочки. Заживо.
+-Харон",2021-07-09T14:06:04Z,0
+49,UgztJG4dFmscb86VCBR4AaABAg,Hat Guy,HY,2021-06-22T03:08:20Z,0
+50,UgztJG4dFmscb86VCBR4AaABAg,Клевер,ну как бы грузовики смерти и все такое,2021-06-09T20:13:09Z,0
+51,UgztJG4dFmscb86VCBR4AaABAg,DjongoBongo Tutorials,"@Продам Гараж монолитовцы есть и на Болотах. Смею предполагать, что О-Сознание посылало монолитовцев, что бы ослабить и так слабое Чистое Небо, вот и один погиб прямо на Кордоне",2021-06-08T11:46:26Z,0
+52,UgztJG4dFmscb86VCBR4AaABAg,VAflya,@Продам Гараж я знаю что это декор,2021-06-05T12:26:10Z,2
+53,UgxJ9-UXKh-MUZGq4NN4AaABAg,Т72Б3 Гурьев,Ничего по новее нет,2021-06-04T15:29:25Z,0
